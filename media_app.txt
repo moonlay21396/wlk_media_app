@@ -1,0 +1,17 @@
+Media App
+
+username - admin@gmail.com
+password - 12345678
+
+Movie
+1.  login/register/logout
+2. category CRUD
+3. star&position====
+4. create movie
+5. display movie
+6. update movie
+7. delete movie====
+
+Playlist
+1. playlist crud====
+2. report
