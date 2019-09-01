@@ -7,6 +7,9 @@ use App\Movie;
 use App\Star;
 use App\Company;
 use App\Photo;
+use App\Category;
+use App\Category_Movie;
+use App\Starlist;
 use App\CustomClass\MovieData;
 use App\CustomClass\PhotoData;
 
@@ -21,7 +24,8 @@ class MovieController extends Controller
     {
         $stars = Star::all();
         $company = Company::all();
-        return view('site_admin.movie',compact('stars','company'))->with([
+        $category = Category::all();
+        return view('site_admin.movie',compact('stars','company','category'))->with([
             'url' => 'movie'
         ]);
     }
@@ -45,6 +49,7 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         $name = $request->get('name');
+        $category = $request->get('category');
 
         $file = $request->file('movie');
         $fileName = uniqid() . '_' . $file->getClientOriginalName();
@@ -66,6 +71,19 @@ class MovieController extends Controller
             'released_year' => $released_year,
             'company_id' => $company
         ])->id;
+
+        foreach ($category as $cat_data) {
+            Category_Movie::create([
+                'category_id' => $cat_data,
+                'movie_id' => $movie_id
+            ]);
+        }
+
+        // Starlist::create([
+        //     'name' => ,
+        //     'position' => ,
+        //     'movie_id' => $movie_id
+        // ]);
         // $images = [];
         if ($photo = $request->file('photos')) {
             foreach ($photo as $photo_data){
@@ -163,7 +181,8 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Movie::find($id)->delete();
+        Photo::where('movie_id',$id)->delete();
     }
     public function view_movie(){
         $movie = Movie::orderBy('created_at', 'Desc')->get();
@@ -183,12 +202,15 @@ class MovieController extends Controller
         return response()->json($movie_arr);
         
     }
-    public function movie_detail($id){
-        $photo_obj = new MovieData($id);
-        $photo_detail = $photo_obj->getMovieData();
+    public function movie_detail(){
+        $movies = Movie::orderBy('id','desc')->get();
+        foreach($movies as $movie_data){
+            $movies_data = new MovieData($movie_data->id);
+            $movie_detail = $movies_data->getMovieData();
+        }
         return view('site_admin.movie_detail')->with([
             'url' => 'movie',
-            'photo_detail' => $photo_detail
+            'movie_detail' => $movie_detail
         ]);     
     }
 }

@@ -78,6 +78,21 @@
                                 <label class="col-form-label">Name:</label><br>
                                 <input type="text" class="form-control" name="name" required rows="1">
                             </div>
+                            <div class="row">
+                            <div class="col-sm-12">
+                                <label>Category</label>
+                            </div>
+                            @foreach ($category as $cat)
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="category[]" class="custom-control-input" id="customCheck{{$cat->id}}" value="{{$cat->id}}">
+                                        <label class="custom-control-label" for="customCheck{{$cat->id}}">{{$cat->cat_name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            </div>
                         <div class="row">
                             <div class="col-md-12 mx-auto">
                                 {{-- <img src="{{asset('images/default.jpg')}}" class="imagePreview" id="movie" style="width: 100%;height: 150px;">
@@ -276,7 +291,7 @@
                         '<div class="row action_'+id+'"><div class="col-md-4"><button class="btn btn-outline-info btn-sm rounded-0 image_edit" data-toggle="modal" data-target="#edit_modalBox" onclick="edit_movie('+id+')" data-id="'+id+'">Edit</button></div>'+
                         // '<div class="col-md-4"><button data-id="'+detail+'" class="btn btn-success rounded-0 btn-sm">Detail</button></div>'+
                         '<a href="'+detail+'" class="btn btn-primary rounded-0 btn-sm">Detail</a>'+
-                        '<div class="col-md-4"><button data-id="'+id+'" class="btn btn-danger rounded-0 float-right btn-sm image_delete" onclick="">Delete</button></div></div></div></div>');          
+                        '<div class="col-md-4"><button data-id="'+id+'" class="btn btn-danger rounded-0 float-right btn-sm image_delete" onclick="delete_movie('+id+')">Delete</button></div></div></div></div>');          
                       });
                       $('#insert_movie')[0].reset();
                   }).fail(function(error){
@@ -359,6 +374,22 @@
                 console.log(error);
             });
         });
+
+        delete_movie=function(id){
+        if(confirm('Are you want to delete!')){
+            $.ajax({
+                type: "POST",
+                data: { "_method" : "delete"},
+                url : "{{url('delete/movie')}}/"+id,
+                cache: false,
+                success:function(data){
+                    //console.log(data);
+                    imageUpload();
+                    toastr.success('Delete successful');
+                }
+            })
+        }
+    }
 
     });
     </script>

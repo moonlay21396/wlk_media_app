@@ -26,13 +26,12 @@ class MovieData
     {
         $this->movie_data['movie'] 
         = Path::$domain_url . 'movie/video/' . $this->movie_data['movie'];
-
-       $photos= Photo::where('movie_id',$this->id)->get();
+      
+        $movie_id = $this->movie_data['id'];
+        $photos= Photo::where('movie_id', $movie_id)->get();
+        $this->movie_data['movie_photos'] = Path::$domain_url . 'movie/photo/' . $photos;
         
-       $this->movie_data['movie_photo'] = Path::$domain_url . 'movie/photo/' . $photos['0']->image;
-    
-        $this->movie_data['movie_photos']
-            = Path::$domain_url . 'movie/photo/' .$photos;
+        $this->movie_data['movie_photo'] = Path::$domain_url . 'movie/photo/' . $photos['0']->image;
 
         // foreach($photos as $photo_each){
         //     return $photo_each->image;

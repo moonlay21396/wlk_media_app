@@ -57,7 +57,8 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/admin/view_movie','MovieController@view_movie');
     Route::get('/admin/edit_movie/{id}', 'MovieController@edit');
     Route::post('/admin/update_movie', 'MovieController@update');
-    Route::get('/admin/movie/detail/{id}', 'MovieController@movie_detail');  
+    Route::get('/admin/movie/detail/{id}', 'MovieController@movie_detail');
+    Route::delete('/delete/movie/{id}', 'MovieController@destroy');
 // });
 Auth::routes();
 

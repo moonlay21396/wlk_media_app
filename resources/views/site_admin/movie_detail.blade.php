@@ -48,44 +48,44 @@
                                     <tbody>
                                         <tr>
                                         <td><b>Name</b></td>
-                                        <td>{{$photo_detail['name']}}</td>
+                                        <td>{{$movie_detail['name']}}</td>
                                       </tr>
                                       <tr>
                                           <td><b>Movie</b></td>
                                           <td>
-                                              <video src="{{$photo_detail['movie']}}" width="200px;" controls></video>
+                                              <video src="{{$movie_detail['movie']}}" width="200px;" controls></video>
                                           </td>
                                       </tr>
                                     <tr>
                                         <td><b>Photos</b></td>
-                                        @foreach($photo_detail as $photo_each)
-                                        <td><img src="{{$photo_each['movie_photos']}}" width="200px;"></td>
+                                        @foreach($movie_detail as $movie_img)
+                                        <td><img src="{{$movie_img}}" width="200px;" height="250px;"></td>
                                         @endforeach
-                                      </tr>
+                                    </tr>
                                       <tr>
                                         <td><b>Actor</b></td>
-                                        <td>{{$photo_detail['actor']}}</td>
+                                        <td>{{$movie_detail['actor']}}</td>
                                       </tr>
                                       <tr>
                                         <td><b>Actress</b></td>
-                                        <td>{{$photo_detail['actress']}}</td>
+                                        <td>{{$movie_detail['actress']}}</td>
                                       </tr>
                                       <tr>
                                         <td><b>Director</b></td>
-                                        <td>{{$photo_detail['director']}}</td>
+                                        <td>{{$movie_detail['director']}}</td>
                                       </tr>
                             
                                       <tr>
                                         <td><b>Running Time</b></td>
-                                        <td>{{$photo_detail['running_time']}}</td>
+                                        <td>{{$movie_detail['running_time']}}</td>
                                       </tr>
                                       <tr>
                                         <td><b>Released Year</b></td>
-                                        <td>{{$photo_detail['released_year']}}</td>
+                                        <td>{{$movie_detail['released_year']}}</td>
                                       </tr>
                                       <tr>
                                         <td><b>Company</b></td>
-                                        <td>{{$photo_detail['company_id']}}</td>
+                                        <td>{{$movie_detail['company_id']}}</td>
                                       </tr>
                                     </tbody>
                                   </table>
